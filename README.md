@@ -1,0 +1,2 @@
+# powerBashell
+powershell bash aliases
