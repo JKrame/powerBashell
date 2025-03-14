@@ -1,0 +1,41 @@
+function touch {
+    New-Item -ItemType File -Name $args
+}
+
+function mkdir {
+    New-Item -ItemType Directory -Name $args
+}
+
+function cd {
+    Set-Location $args
+}
+
+function where {
+    winget.exe search $args
+}
+
+
+function rm {
+    param(
+        [string]$Path,
+        [switch]$Force,
+        [switch]$Recurse
+    )
+
+    # Check if the path exists
+    if (-not (Test-Path -Path $Path)) {
+        Write-Host "Error: Path '$Path' does not exist."
+        return
+    }
+
+    # Remove the item based on flags
+    if ($Force) {
+        Remove-Item -Path $Path -Force
+    }
+    elseif ($Recurse) {
+        Remove-Item -Path $Path -Recurse
+    }
+    else {
+        Remove-Item -Path $Path
+    }
+}
